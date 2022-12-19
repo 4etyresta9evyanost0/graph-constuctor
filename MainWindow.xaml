@@ -1,0 +1,45 @@
+﻿<Window x:Class="GraphicalGraph.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphicalGraph"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="WindowGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="UIGrid" Height="76" VerticalAlignment="Top" Grid.RowSpan="1">
+            <xctk:ColorPicker x:Name="vertColorPicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,22,0,0" Width="80" SelectedColor="#ABCB51"></xctk:ColorPicker>
+            <xctk:DoubleUpDown x:Name="diameterUD" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Margin="5,50,0,0" Width="80" Value="60"/>
+            <Label Content="Заполнение:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="27"/>
+            <xctk:ColorPicker x:Name="strokeVertColorPicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="104,22,0,0" Width="80" SelectedColor="Black"/>
+            <Button Content="Удалить всё" x:Name="delAllButton" HorizontalAlignment="Left" Margin="203,52,0,0" VerticalAlignment="Top" MinWidth="75"/>
+            <xctk:DoubleUpDown x:Name="strokeUD" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Margin="104,50,0,0" Width="80" Value="2"/>
+            <GroupBox Header="Действия" HorizontalAlignment="Left" Height="56" Margin="435,10,0,0" VerticalAlignment="Top" Width="347">
+                <Grid>
+                    <RadioButton Checked="MouseActionChanged" x:Name="AddingRB" IsChecked="True" Content="Добавление" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,0,0,0">
+
+                    </RadioButton>
+                    <RadioButton Checked="MouseActionChanged" x:Name="MovingRB" Content="Перемещение" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                    </RadioButton>
+                    <RadioButton Checked="MouseActionChanged" x:Name="SelectingRB" Content="Выделение" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="195,0,0,0">
+
+                    </RadioButton>
+                    <RadioButton Checked="MouseActionChanged" x:Name="BindingRB" Content="Соединение" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,18,0,0">
+
+                    </RadioButton>
+                </Grid>
+            </GroupBox>
+            <Label Content="Обводка:" HorizontalAlignment="Left" Margin="104,0,0,0" VerticalAlignment="Top" Height="27"/>
+        </Grid>
+        <Border BorderBrush="Black" VerticalAlignment="Stretch"  BorderThickness="1,1,1,1" MinHeight="345" Grid.Row="1">
+            <Grid x:Name="CanvGrid" Background="Gainsboro"/>
+        </Border>
+
+    </Grid>
+</Window>
