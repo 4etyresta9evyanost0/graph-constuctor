@@ -35,6 +35,15 @@ namespace GraphicalGraph
             MovingRB.Tag = MouseCanvasAction.Moving;
             SelectingRB.Tag = MouseCanvasAction.Selecting;
             BindingRB.Tag = MouseCanvasAction.Binding;
+
+            var e = new gEdge();
+
+            e.X1 = e.Y1 = 150;
+            e.X2 = e.Y2 = 500;
+            e.Stroke = Brushes.Black;
+            e.StrokeThickness = 5;
+
+            CanvGrid.Children.Add(e);
             //Positioning.IsPointInRect(Mouse.GetPosition(this), MainGrid);
         }
 
@@ -54,7 +63,7 @@ namespace GraphicalGraph
         public MouseCanvasAction MouseAction = MouseCanvasAction.Adding;
         Point p = new Point(-1, -1);
 
-        Line BindingLine = null;
+        gEdge BindingLine = null;
         private void ClickEvent(object sender, MouseButtonEventArgs e)
         {
             var s = sender as Grid;
@@ -103,15 +112,15 @@ namespace GraphicalGraph
                                             }
                                         case MouseCanvasAction.Binding:
                                             {
-                                                BindingLine = new Line();
+                                                BindingLine = new gEdge();
                                                 
                                                 Binding bind = new Binding("CenterX");
                                                 bind.Source = gV;
-                                                BindingLine.SetBinding(Line.X1Property, bind);
+                                                BindingLine.SetBinding(gEdge.X1Property, bind);
 
                                                 bind = new Binding("CenterY");
                                                 bind.Source = gV;
-                                                BindingLine.SetBinding(Line.Y1Property, bind);
+                                                BindingLine.SetBinding(gEdge.Y1Property, bind);
 
                                                 //BindingLine.X1 = gV.Margin.Left + gV.Width / 2;
                                                 //BindingLine.Y1 = gV.Margin.Top + gV.Height / 2;
@@ -172,11 +181,11 @@ namespace GraphicalGraph
                                             {
                                                 Binding bind = new Binding("CenterX");
                                                 bind.Source = gV;
-                                                BindingLine.SetBinding(Line.X2Property, bind);
+                                                BindingLine.SetBinding(gEdge.X2Property, bind);
 
                                                 bind = new Binding("CenterY");
                                                 bind.Source = gV;
-                                                BindingLine.SetBinding(Line.Y2Property, bind);
+                                                BindingLine.SetBinding(gEdge.Y2Property, bind);
 
                                                 BindingLine = null;
                                                 break;

@@ -7,7 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="gridEdge">
-        <Line X1="0" Y1="0" X2="{Binding ElementName=gridEdge, Path=ActualWidth}" Y2="{Binding ElementName=gridEdge, Path=ActualHeight}">
+        <Line x:Name="_line" X1="{Binding Path=X1, RelativeSource={RelativeSource AncestorType=local:gEdge}, Mode=TwoWay}" Y1="{Binding Path=Y1, RelativeSource={RelativeSource AncestorType=local:gEdge}, Mode=TwoWay}" 
+              X2="{Binding Path=X2, RelativeSource={RelativeSource AncestorType=local:gEdge}, Mode=TwoWay}" Y2="{Binding Path=Y2, RelativeSource={RelativeSource AncestorType=local:gEdge}, Mode=TwoWay}" 
+              Stroke = "{Binding Path=Stroke, RelativeSource={RelativeSource AncestorType=local:gEdge}, Mode=TwoWay}"
+              StrokeThickness="{Binding Path=StrokeThickness, RelativeSource={RelativeSource AncestorType=local:gEdge}, Mode=TwoWay}">
             
         </Line>
     </Grid>
