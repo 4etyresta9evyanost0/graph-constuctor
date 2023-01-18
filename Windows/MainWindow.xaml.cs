@@ -22,9 +22,16 @@ namespace GraphicalGraph
     /// </summary>
     public partial class MainWindow : Window
     {
+        DesignerWindow designerWindow;
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += (x, ev) =>
+            {
+                designerWindow = new DesignerWindow();
+                designerWindow.Owner = this;
+                optionsButton.Click += (y, eve) => designerWindow.Show();
+            };
             delAllButton.Click += DelAllVerts;
             CanvGrid.MouseDown += ClickEvent;
             CanvGrid.MouseMove += MouseMovingEvent;
@@ -35,15 +42,6 @@ namespace GraphicalGraph
             MovingRB.Tag = MouseCanvasAction.Moving;
             SelectingRB.Tag = MouseCanvasAction.Selecting;
             BindingRB.Tag = MouseCanvasAction.Binding;
-
-            var e = new gEdge();
-
-            e.X1 = e.Y1 = 150;
-            e.X2 = e.Y2 = 500;
-            e.Stroke = Brushes.Black;
-            e.StrokeThickness = 5;
-
-            CanvGrid.Children.Add(e);
             //Positioning.IsPointInRect(Mouse.GetPosition(this), MainGrid);
         }
 
@@ -76,22 +74,22 @@ namespace GraphicalGraph
                         {
                             var el = new gVertex(s);
                             Binding b = new Binding("Value");
-                            b.Source = diameterUD;
+                            b.Source = designerWindow.diameterUD;
                             el.SetBinding(gVertex.WidthProperty, b);
                             el.SetBinding(gVertex.HeightProperty, b);
                             //el.Width = el.Height = 75d;
                             var r = el.Width / 2;
                             b = new Binding("SelectedColor");
                             b.Converter = new ColorConverter();
-                            b.Source = vertColorPicker;
+                            b.Source = designerWindow.vertColorPicker;
                             //var c = new SolidColorBrush(vertColorPicker.SelectedColor ?? Color.FromRgb(255, 255, 255));
                             el.Ellipse.SetBinding(Ellipse.FillProperty, b);
                             b = new Binding("SelectedColor");
                             b.Converter = new ColorConverter();
-                            b.Source = strokeVertColorPicker;
+                            b.Source = designerWindow.strokeVertColorPicker;
                             el.Ellipse.SetBinding(Ellipse.StrokeProperty, b);
                             b = new Binding("Value");
-                            b.Source = strokeUD;
+                            b.Source = designerWindow.strokeVertUD;
                             el.Ellipse.SetBinding(Ellipse.StrokeThicknessProperty, b);
                             el.HorizontalAlignment = HorizontalAlignment.Left;
                             el.VerticalAlignment = VerticalAlignment.Top;
@@ -195,6 +193,9 @@ namespace GraphicalGraph
                             }; //ElMouseUp;
 
                             s.Children.Add(el);
+
+                            if (Keyboard.Modifiers != ModifierKeys.Shift)
+                                MovingRB.IsChecked = true;
                             break;
                         }
                     case MouseCanvasAction.Moving:

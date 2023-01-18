@@ -23,7 +23,51 @@ namespace GraphicalGraph
         public gEdge()
         {
             InitializeComponent();
+
+            X1Changed += ChangedPos;
+            X2Changed += ChangedPos;
+            Y1Changed += ChangedPos;
+            Y2Changed += ChangedPos;
         }
+
+        private void ChangedPos(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            _line.X1 = (double)GetValue(X1Property);
+            _line.X2 = (double)GetValue(X2Property);
+            _line.Y1 = (double)GetValue(Y1Property);
+            _line.Y2 = (double)GetValue(Y2Property);
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            
+            if (e.Property == X1Property)
+            {
+                X1Changed?.Invoke(this, e);
+            }
+
+            if (e.Property == X2Property)
+            {
+                X2Changed?.Invoke(this, e);
+            }
+
+            if (e.Property == Y1Property)
+            {
+                Y1Changed?.Invoke(this, e);
+            }
+
+            if (e.Property == Y2Property)
+            {
+                Y2Changed?.Invoke(this, e);
+            }
+
+        }
+
+        public static event PropertyChangedCallback X1Changed;
+        public static event PropertyChangedCallback X2Changed;
+        public static event PropertyChangedCallback Y1Changed;
+        public static event PropertyChangedCallback Y2Changed;
 
         public double X1
         {
@@ -35,7 +79,7 @@ namespace GraphicalGraph
                   "X1",
                   typeof(double),
                   typeof(gVertex),
-                  new PropertyMetadata()
+                  new FrameworkPropertyMetadata(0.0, X1Changed)
               );
 
         public double Y1
@@ -48,7 +92,7 @@ namespace GraphicalGraph
                   "Y1",
                   typeof(double),
                   typeof(gVertex),
-                  new PropertyMetadata()
+                  new FrameworkPropertyMetadata(0.0, Y1Changed)
               );
 
         public double X2
@@ -61,7 +105,7 @@ namespace GraphicalGraph
                   "X2",
                   typeof(double),
                   typeof(gVertex),
-                  new PropertyMetadata()
+                  new FrameworkPropertyMetadata(0.0, X2Changed)
               );
 
         public double Y2
@@ -74,7 +118,7 @@ namespace GraphicalGraph
                   "Y2",
                   typeof(double),
                   typeof(gVertex),
-                  new PropertyMetadata()
+                  new FrameworkPropertyMetadata(0.0, Y2Changed)
               );
 
         public Brush Stroke
@@ -87,7 +131,7 @@ namespace GraphicalGraph
                   "Stroke",
                   typeof(Brush),
                   typeof(gVertex),
-                  new PropertyMetadata(Brushes.Black)
+                  new FrameworkPropertyMetadata(Brushes.Black)
               );
 
         public double StrokeThickness
@@ -100,7 +144,7 @@ namespace GraphicalGraph
                   "StrokeThickness",
                   typeof(double),
                   typeof(gVertex),
-                  new PropertyMetadata(2.0)
+                  new FrameworkPropertyMetadata(2.0)
               );
     }
 }
